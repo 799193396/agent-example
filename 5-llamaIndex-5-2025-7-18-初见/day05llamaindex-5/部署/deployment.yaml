@@ -1,0 +1,18 @@
+name: QuickStart
+
+control-plane:
+  port: 8000
+
+default-service: echo_workflow
+
+services:
+  echo_workflow:
+    name: Echo Workflow
+    # 我们告诉LlamaDeploy在哪里查找我们的工作流
+    source:
+      # 在本例中，我们指示LlamaDeploy查找本地文件系统
+      type: local
+      # 相对于此部署配置文件查找代码的路径。这假定在与配置文件相同的目录中有一个 src 文件夹，其中包含我们之前创建的 workflow.py 文件。
+      name: ./src
+    # 这里假设文件workflow.py包含一个名为“echo_workflow”的变量，其中包含我们的工作流实例
+    path: src/workflow:echo_workflow

@@ -1,0 +1,3 @@
+先运行两个server   再运行client就可以和大模型进行交互了
+我用的是Deepseek，你们需要在环境变量里设置一下Deepseek的key
+这里用到了两个mcp服务 分别是math 进行数学计算的  和weather 查询天气的

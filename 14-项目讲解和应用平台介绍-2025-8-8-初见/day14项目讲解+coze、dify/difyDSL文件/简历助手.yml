@@ -1,0 +1,627 @@
+app:
+  description: 生成简历或分析简历中的不足
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 简历助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.6@dd589dc093c8084925858034ab5ec1fdf0d33819f43226c2f8c4a749a9acbbb2
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/siliconflow:0.0.17@88c62094bb40b57a179a051bd6bb2b3a80bac535a2e8bb97047193ac363eb2e6
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: bowenliang123/md_exporter:1.8.0@aa15ca94651e608fa2defef440cc5bbd22884053168bd2d41d132d5d1b021129
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1752495092803-source-1752495421091-target
+      source: '1752495092803'
+      sourceHandle: source
+      target: '1752495421091'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1752495421091-true-1752495524445-target
+      source: '1752495421091'
+      sourceHandle: 'true'
+      target: '1752495524445'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1752495421091-false-1752495831407-target
+      source: '1752495421091'
+      sourceHandle: 'false'
+      target: '1752495831407'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: 1752495831407-true-1752495917229-target
+      source: '1752495831407'
+      sourceHandle: 'true'
+      target: '1752495917229'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 1752495917229-source-1752495700472-target
+      source: '1752495917229'
+      sourceHandle: source
+      target: '1752495700472'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1752495700472-source-1752495968107-target
+      source: '1752495700472'
+      sourceHandle: source
+      target: '1752495968107'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: tool
+      id: 1752495859748-source-1752500751200-target
+      source: '1752495859748'
+      sourceHandle: source
+      target: '1752500751200'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: end
+      id: 1752500751200-source-1752496295961-target
+      source: '1752500751200'
+      sourceHandle: source
+      target: '1752496295961'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1752495831407-false-1752589699747-target
+      source: '1752495831407'
+      sourceHandle: 'false'
+      target: '1752589699747'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1752589699747-source-1752495859748-target
+      source: '1752589699747'
+      sourceHandle: source
+      target: '1752495859748'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: 姓名
+          max_length: 48
+          options: []
+          required: false
+          type: text-input
+          variable: name
+        - label: 教育背景
+          max_length: 48
+          options: []
+          required: false
+          type: text-input
+          variable: educational_background
+        - label: 工作经验
+          max_length: 1000
+          options: []
+          required: false
+          type: paragraph
+          variable: work_experience
+        - label: 技能特长
+          max_length: 1000
+          options: []
+          required: false
+          type: paragraph
+          variable: special_skill
+        - label: "自我评价\t"
+          max_length: 256
+          options: []
+          required: false
+          type: text-input
+          variable: self_assessment
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 简历
+          max_length: 48
+          options: []
+          required: false
+          type: file
+          variable: file
+      height: 219
+      id: '1752495092803'
+      position:
+        x: 8.780701990183815
+        y: 354
+      positionAbsolute:
+        x: 8.780701990183815
+        y: 354
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not exists
+            id: 858789fa-76d9-40b5-8beb-8ddaf9f9485e
+            value: ''
+            varType: file
+            variable_selector:
+            - '1752495092803'
+            - file
+          - comparison_operator: empty
+            id: a4c40382-7bfe-4902-be54-fc264c8d88c3
+            value: ''
+            varType: string
+            variable_selector:
+            - '1752495092803'
+            - name
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 151
+      id: '1752495421091'
+      position:
+        x: 455.16355393991705
+        y: 354
+      positionAbsolute:
+        x: 455.16355393991705
+        y: 354
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs: []
+        selected: false
+        title: 结束
+        type: end
+      height: 53
+      id: '1752495524445'
+      position:
+        x: 753.345784240332
+        y: 377.02235463027864
+      positionAbsolute:
+        x: 753.345784240332
+        y: 377.02235463027864
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: Qwen/Qwen3-235B-A22B
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: c179f6b1-431d-4d8a-a5a1-93c819e4cfd1
+          role: system
+          text: '你是一个资深招聘官，请阅读以下简历内容，指出其中的优点、存在的问题，并根据内容推荐3个合适的岗位：
+
+
+            简历内容如下：
+
+            {{#1752495917229.text#}}
+
+
+            请输出以下结构化内容：
+
+            1. 简历亮点
+
+            2. 可改进之处
+
+            3. 推荐岗位（列出3个岗位名称及匹配理由）'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1752495700472'
+      position:
+        x: 1494.6356819049674
+        y: 377.02235463027864
+      positionAbsolute:
+        x: 1494.6356819049674
+        y: 377.02235463027864
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: exists
+            id: e530c295-17de-45f6-85de-5cc0a7d7d041
+            value: ''
+            varType: file
+            variable_selector:
+            - '1752495092803'
+            - file
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: true
+        title: 条件分支 2
+        type: if-else
+      height: 125
+      id: '1752495831407'
+      position:
+        x: 753.345784240332
+        y: 456.2825411250741
+      positionAbsolute:
+        x: 753.345784240332
+        y: 456.2825411250741
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 6aab5f98-0c69-4b9d-a39a-7a035c0435b5
+          role: system
+          text: '你是一个专业的简历写手，请根据以下用户信息，生成一份中文简历，内容要符合 HR 阅读习惯，条理清晰，突出重点。
+
+            请按照markdown的格式输出
+
+
+            - 姓名：{{#1752495092803.name#}}
+
+            - 教育背景：{{#1752495092803.educational_background#}}
+
+            - 工作经验：{{#1752495092803.work_experience#}}
+
+            - 技能特长：{{#1752495092803.special_skill#}}
+
+            - 自我评价：{{#1752495092803.self_assessment#}}
+
+
+            请按以下格式输出：
+
+            1. 基本信息
+
+            2. 教育背景
+
+            3. 工作经历
+
+            4. 技能专长
+
+            5. 自我评价'
+        selected: false
+        title: LLM 2
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1752495859748'
+      position:
+        x: 1450.98514441508
+        y: 616.446095064991
+      positionAbsolute:
+        x: 1450.98514441508
+        y: 616.446095064991
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_array_file: false
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - '1752495092803'
+        - file
+      height: 91
+      id: '1752495917229'
+      position:
+        x: 1150.98514441508
+        y: 377.02235463027864
+      positionAbsolute:
+        x: 1150.98514441508
+        y: 377.02235463027864
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1752495700472'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: 结束 2
+        type: end
+      height: 89
+      id: '1752495968107'
+      position:
+        x: 1833.2863619006525
+        y: 377.02235463027864
+      positionAbsolute:
+        x: 1833.2863619006525
+        y: 377.02235463027864
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1752500751200'
+          - files
+          value_type: array[file]
+          variable: text
+        selected: false
+        title: 结束 3
+        type: end
+      height: 89
+      id: '1752496295961'
+      position:
+        x: 2133.2863619006525
+        y: 616.446095064991
+      positionAbsolute:
+        x: 2133.2863619006525
+        y: 616.446095064991
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Markdown text
+            ja_JP: Markdown text
+            pt_BR: Markdown text
+            zh_Hans: Markdown格式文本
+          label:
+            en_US: Markdown text
+            ja_JP: Markdown text
+            pt_BR: Markdown text
+            zh_Hans: Markdown格式文本
+          llm_description: ''
+          max: null
+          min: null
+          name: md_text
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Filename of the output file
+            ja_JP: Filename of the output file
+            pt_BR: Filename of the output file
+            zh_Hans: 输出文件名
+          label:
+            en_US: Filename of the output file
+            ja_JP: Filename of the output file
+            pt_BR: Filename of the output file
+            zh_Hans: 输出文件名
+          llm_description: ''
+          max: null
+          min: null
+          name: output_filename
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          md_text: ''
+          output_filename: ''
+        provider_id: bowenliang123/md_exporter/md_exporter
+        provider_name: bowenliang123/md_exporter/md_exporter
+        provider_type: builtin
+        selected: false
+        title: Markdown 转 DOCX 文件
+        tool_configurations: {}
+        tool_description: 将 Markdown 转换为 DOCX 文件的工具
+        tool_label: Markdown 转 DOCX 文件
+        tool_name: md_to_docx
+        tool_parameters:
+          md_text:
+            type: mixed
+            value: '{{#1752495859748.text#}}'
+          output_filename:
+            type: mixed
+            value: 简历
+        type: tool
+      height: 53
+      id: '1752500751200'
+      position:
+        x: 1799.974109605738
+        y: 616.446095064991
+      positionAbsolute:
+        x: 1799.974109605738
+        y: 616.446095064991
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids: []
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: false
+          top_k: 4
+        query_variable_selector: []
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 53
+      id: '1752589699747'
+      position:
+        x: 1150.98514441508
+        y: 616.446095064991
+      positionAbsolute:
+        x: 1150.98514441508
+        y: 616.446095064991
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -682.8050811940948
+      y: -97.32808477542017
+      zoom: 0.7578582832551991

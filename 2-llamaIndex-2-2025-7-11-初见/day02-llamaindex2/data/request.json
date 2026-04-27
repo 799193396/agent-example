@@ -1,0 +1,21 @@
+{
+  "company": "FutureTech",
+  "lastUpdated": "2025-04-29",
+  "team": [
+    {
+      "name": "陈思明 (Chen Siming)",
+      "role": "首席执行官 (CEO)",
+      "bio": "拥有超过15年的科技行业领导经验，专注于 AI 战略与发展。"
+    },
+    {
+      "name": "Aisha Khan",
+      "role": "首席技术官 (CTO)",
+      "bio": "人工智能和机器学习领域的专家，负责技术研发和创新。"
+    },
+    {
+      "name": "李伟 (Li Wei)",
+      "role": "AI 研究主管",
+      "bio": "在自然语言处理方面有深入研究，发表多篇顶级会议论文。"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+在使用之前首先安装UV和nodejs避免后面报错
+安装uv输入   pip install uv
+
+
+nodejs去官网下载https://nodejs.cn/download/
+
+
+{
+  "mcpServers": {
+    "weather": {
+      "disabled": false,
+      "timeout": 60,
+      "type": "stdio",
+      "command": "D:/uv.exe",
+      "args": [
+        "--directory",
+        "D:/weather",
+        "run",
+        "weather.py"
+      ],
+      "transportType": "stdio"
+    }
+  }
+}
+
+
+##把"D:/uv.exe",和"D:/weather",这两行改成你自己下载的文件路径就行了
+
+logger是参考代码 不要求掌握哈  如果想学习client的写法 移步easymcp这个文件夹里 有演示代码和讲解
+
+
+
+
+

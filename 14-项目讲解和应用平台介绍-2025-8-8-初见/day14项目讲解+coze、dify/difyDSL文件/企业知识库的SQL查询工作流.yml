@@ -1,0 +1,615 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 企业知识库的SQL查询工作流
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/siliconflow:0.0.17@88c62094bb40b57a179a051bd6bb2b3a80bac535a2e8bb97047193ac363eb2e6
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: hjlarry/database:0.0.6@534bc26cf5bc4ff6b5557457452287ccc71f00eef9378784c4f43ca49954ca2f
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: llm
+      id: 1754396286294-source-1754395765490-target
+      source: '1754396286294'
+      sourceHandle: source
+      target: '1754395765490'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1754395765490-source-1754394737923-target
+      source: '1754395765490'
+      sourceHandle: source
+      target: '1754394737923'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: llm
+      id: 1754400025415-source-1754399871688-target
+      source: '1754400025415'
+      sourceHandle: source
+      target: '1754399871688'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: tool
+      id: 1754394595204-source-1754400025415-target
+      source: '1754394595204'
+      sourceHandle: source
+      target: '1754400025415'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: tool
+      id: 1754399871688-source-1754396286294-target
+      source: '1754399871688'
+      sourceHandle: source
+      target: '1754396286294'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: query
+          max_length: 100
+          options: []
+          required: true
+          type: text-input
+          variable: query
+      height: 89
+      id: '1754394595204'
+      position:
+        x: -119.8735137694841
+        y: 282
+      positionAbsolute:
+        x: -119.8735137694841
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1754395765490'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: 结束
+        type: end
+      height: 89
+      id: '1754394737923'
+      position:
+        x: 1383.7996806885442
+        y: 282
+      positionAbsolute:
+        x: 1383.7996806885442
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-V3
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - edition_type: basic
+          id: 3e3d0d1e-0fae-4a32-abc3-380faeec2c45
+          role: system
+          text: '你是一个SQL总结专家，请根据用户的问题{{#1754394595204.query#}}，和对应查询SQL{{#1754396286294.text#}}的结果进行回答
+
+
+            注意：只需要把查询出来的内容进行摘要，不需要进行太多的赘述'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1754395765490'
+      position:
+        x: 1101.0547856937021
+        y: 301.1095766788978
+      positionAbsolute:
+        x: 1101.0547856937021
+        y: 301.1095766788978
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The SQL query string.
+            ja_JP: The SQL query string.
+            pt_BR: The SQL query string.
+            zh_Hans: SQL 查询语句。
+          label:
+            en_US: SQL Query
+            ja_JP: SQL Query
+            pt_BR: SQL Query
+            zh_Hans: SQL 查询语句
+          llm_description: The SQL query string.
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Optional, Filling in this field will overwrite the database connection
+              entered during authorization.
+            ja_JP: Optional, Filling in this field will overwrite the database connection
+              entered during authorization.
+            pt_BR: Optional, Filling in this field will overwrite the database connection
+              entered during authorization.
+            zh_Hans: 选填，填写后将覆盖授权时填写的数据库连接。
+          label:
+            en_US: DB URI
+            ja_JP: DB URI
+            pt_BR: DB URI
+            zh_Hans: DB URI
+          llm_description: ''
+          max: null
+          min: null
+          name: db_uri
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: json
+          form: form
+          human_description:
+            en_US: Choose the output format.
+            ja_JP: Choose the output format.
+            pt_BR: Choose the output format.
+            zh_Hans: 选择输出格式。
+          label:
+            en_US: Output format
+            ja_JP: Output format
+            pt_BR: Output format
+            zh_Hans: 输出格式
+          llm_description: ''
+          max: null
+          min: null
+          name: format
+          options:
+          - icon: ''
+            label:
+              en_US: JSON
+              ja_JP: JSON
+              pt_BR: JSON
+              zh_Hans: JSON
+            value: json
+          - icon: ''
+            label:
+              en_US: CSV
+              ja_JP: CSV
+              pt_BR: CSV
+              zh_Hans: CSV
+            value: csv
+          - icon: ''
+            label:
+              en_US: YAML
+              ja_JP: YAML
+              pt_BR: YAML
+              zh_Hans: YAML
+            value: yaml
+          - icon: ''
+            label:
+              en_US: Markdown
+              ja_JP: Markdown
+              pt_BR: Markdown
+              zh_Hans: Markdown
+            value: md
+          - icon: ''
+            label:
+              en_US: Excel
+              ja_JP: Excel
+              pt_BR: Excel
+              zh_Hans: Excel
+            value: xlsx
+          - icon: ''
+            label:
+              en_US: HTML
+              ja_JP: HTML
+              pt_BR: HTML
+              zh_Hans: HTML
+            value: html
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: 'Optional. For example {"connect_args": {"ssl": {"ca": "/path/to/ca.pem"}}}
+
+              More connection options can be found at https://docs.sqlalchemy.org/en/20/core/engines.html#sqlalchemy.create_engine
+
+              '
+            ja_JP: 'Optional. For example {"connect_args": {"ssl": {"ca": "/path/to/ca.pem"}}}
+
+              More connection options can be found at https://docs.sqlalchemy.org/en/20/core/engines.html#sqlalchemy.create_engine
+
+              '
+            pt_BR: 'Optional. For example {"connect_args": {"ssl": {"ca": "/path/to/ca.pem"}}}
+
+              More connection options can be found at https://docs.sqlalchemy.org/en/20/core/engines.html#sqlalchemy.create_engine
+
+              '
+            zh_Hans: '选填项。例如 {"connect_args": {"ssl": {"ca": "/path/to/ca.pem"}}}
+
+              更多连接选项可参考 https://docs.sqlalchemy.org/en/20/core/engines.html#sqlalchemy.create_engine
+
+              '
+          label:
+            en_US: DB Config Options
+            ja_JP: DB Config Options
+            pt_BR: DB Config Options
+            zh_Hans: 数据库连接配置选项
+          llm_description: ''
+          max: null
+          min: null
+          name: config_options
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          config_options: ''
+          db_uri: ''
+          format: ''
+          query: ''
+        provider_id: hjlarry/database/database
+        provider_name: hjlarry/database/database
+        provider_type: builtin
+        selected: true
+        title: SQL Execute
+        tool_configurations:
+          config_options: null
+          format: md
+        tool_description: 此工具用于在已存在的数据库中执行 SQL 查询。
+        tool_label: SQL Execute
+        tool_name: sql_execute
+        tool_parameters:
+          query:
+            type: mixed
+            value: '{{#1754399871688.text#}}'
+        type: tool
+      height: 115
+      id: '1754396286294'
+      position:
+        x: 817.8029141146649
+        y: 282
+      positionAbsolute:
+        x: 817.8029141146649
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-V3
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: ff6e1bb1-b1b4-4be4-954b-2935ccd60dbd
+          role: system
+          text: "##  角色定义  \n你是一位专业的 SQL 查询生成专家，擅长基于已知数据库表结构，精准理解自然语言查询需求，并生成高效、准确、可执行的\
+            \ SQL 查询语句。\n\n##  输入信息  \n- **表结构信息**：`{{#1754400025415.text#}}`  \n\
+            - **查询需求**：`{{#1754394595204.query#}}`\n\n##  工作流程  \n1. **需求分析**：理解用户的查询意图和业务逻辑\
+            \  \n2. **字段匹配**：在提供的表结构中找到对应表和字段  \n3. **关系识别**：识别表与表之间的主外键关系  \n4. **SQL\
+            \ 构建**：生成符合数据库语法的 SQL 查询语句  \n5. **语法验证**：确保字段存在、数据类型匹配、语句可执行\n\n##  SQL\
+            \ 生成原则  \n- **严格使用** 提供的表名和字段名（**区分大小写**）  \n- **基于实际外键关系** 进行表关联  \n\
+            - **根据字段类型** 选择合适的函数和操作符  \n- **优先使用索引字段** 作为筛选条件  \n- **确保 SQL 语句可直接执行，无语法错误**\n\
+            \n##  输出格式  \n\n**必须只返回 SQL 查询语句，不得包含任何解释、注释或其他文字内容**。\n\n--（禁止使用注释，禁止输出非\
+            \ SQL 内容）\nSELECT ...\nFROM ...\nWHERE ..."
+        selected: false
+        title: LLM 2
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1754399871688'
+      position:
+        x: 519.7843802599645
+        y: 287.734224847635
+      positionAbsolute:
+        x: 519.7843802599645
+        y: 287.734224847635
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Specify which tables schema you want to get. If not specified,
+              all tables will be used. Multi tables use comma to separate.
+            ja_JP: Specify which tables schema you want to get. If not specified,
+              all tables will be used. Multi tables use comma to separate.
+            pt_BR: Specify which tables schema you want to get. If not specified,
+              all tables will be used. Multi tables use comma to separate.
+            zh_Hans: 指定想要哪些表的结构，如不指定，则使用所有表。多张表用半角逗号隔开。
+          label:
+            en_US: Tables
+            ja_JP: Tables
+            pt_BR: Tables
+            zh_Hans: 表
+          llm_description: Specify which tables schema you want to get. If not specified,
+            all tables will be used. Multi tables use comma to separate.
+          max: null
+          min: null
+          name: tables
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Optional, Filling in this field will overwrite the database connection
+              entered during authorization.
+            ja_JP: Optional, Filling in this field will overwrite the database connection
+              entered during authorization.
+            pt_BR: Optional, Filling in this field will overwrite the database connection
+              entered during authorization.
+            zh_Hans: 选填，填写后将覆盖授权时填写的数据库连接。
+          label:
+            en_US: DB URI
+            ja_JP: DB URI
+            pt_BR: DB URI
+            zh_Hans: DB URI
+          llm_description: ''
+          max: null
+          min: null
+          name: db_uri
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: secret-input
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: 'Optional. For example {"connect_args": {"ssl": {"ca": "/path/to/ca.pem"}}}
+
+              More connection options can be found at https://docs.sqlalchemy.org/en/20/core/engines.html#sqlalchemy.create_engine
+
+              '
+            ja_JP: 'Optional. For example {"connect_args": {"ssl": {"ca": "/path/to/ca.pem"}}}
+
+              More connection options can be found at https://docs.sqlalchemy.org/en/20/core/engines.html#sqlalchemy.create_engine
+
+              '
+            pt_BR: 'Optional. For example {"connect_args": {"ssl": {"ca": "/path/to/ca.pem"}}}
+
+              More connection options can be found at https://docs.sqlalchemy.org/en/20/core/engines.html#sqlalchemy.create_engine
+
+              '
+            zh_Hans: '选填项。例如 {"connect_args": {"ssl": {"ca": "/path/to/ca.pem"}}}
+
+              更多连接选项可参考 https://docs.sqlalchemy.org/en/20/core/engines.html#sqlalchemy.create_engine
+
+              '
+          label:
+            en_US: DB Config Options
+            ja_JP: DB Config Options
+            pt_BR: DB Config Options
+            zh_Hans: 数据库连接配置选项
+          llm_description: ''
+          max: null
+          min: null
+          name: config_options
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: Schema name. If `schema` is left empty, the database's default
+              schema(like the `public` of postgresql) is used, else the named schema
+              is searched
+            ja_JP: Schema name. If `schema` is left empty, the database's default
+              schema(like the `public` of postgresql) is used, else the named schema
+              is searched
+            pt_BR: Schema name. If `schema` is left empty, the database's default
+              schema(like the `public` of postgresql) is used, else the named schema
+              is searched
+            zh_Hans: 数据库schema名称。如果 `schema` 留空，则使用数据库的默认schema(例如postgresql中的public)，否则使用指定的schema。
+          label:
+            en_US: Schema
+            ja_JP: Schema
+            pt_BR: Schema
+            zh_Hans: Schema
+          llm_description: ''
+          max: null
+          min: null
+          name: schema
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          config_options: ''
+          db_uri: ''
+          schema: ''
+          tables: ''
+        provider_id: hjlarry/database/database
+        provider_name: hjlarry/database/database
+        provider_type: builtin
+        selected: false
+        title: Get Table Schema
+        tool_configurations:
+          config_options: null
+          schema: null
+        tool_description: 从数据库中获取表结构。
+        tool_label: Get Table Schema
+        tool_name: table_schema
+        tool_parameters:
+          tables:
+            type: mixed
+            value: ''
+        type: tool
+      height: 115
+      id: '1754400025415'
+      position:
+        x: 175.1748737608541
+        y: 275.0985429426676
+      positionAbsolute:
+        x: 175.1748737608541
+        y: 275.0985429426676
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -767.3362070113719
+      y: -42.5125152051246
+      zoom: 1.1486983549970369

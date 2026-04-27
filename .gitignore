@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Codebuddy
+.codebuddy/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Data & Cache
+chroma_db/
+*.db
+.gradio/
+
+# Env files
+.env
+
+# Logs
+*.log
+pip_log.txt
+pip_install_log.txt
+pip_install_err.txt

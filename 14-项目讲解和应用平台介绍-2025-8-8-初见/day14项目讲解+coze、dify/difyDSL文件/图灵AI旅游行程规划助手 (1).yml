@@ -1,0 +1,184 @@
+app:
+  description: 旅游分析智能助手
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: agent-chat
+  name: 图灵AI旅游行程规划助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.6@dd589dc093c8084925858034ab5ec1fdf0d33819f43226c2f8c4a749a9acbbb2
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tavily:0.1.2@aa7a8744b2ccf3a7aec818da6c504997a6319b29040e541bfc73b4fbaa9e98d9
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gaode:0.0.3@a366a2187544e9c1c6a5322df79b5f806ea3a6e14c2a47760655e708da987006
+kind: app
+model_config:
+  agent_mode:
+    enabled: true
+    max_iteration: 5
+    prompt: null
+    strategy: function_call
+    tools:
+    - enabled: true
+      isDeleted: false
+      notAuthor: false
+      provider_id: langgenius/tavily/tavily
+      provider_name: langgenius/tavily/tavily
+      provider_type: builtin
+      tool_label: Tavily Search
+      tool_name: tavily_search
+      tool_parameters:
+        days: ''
+        exclude_domains: ''
+        include_answer: ''
+        include_domains: ''
+        include_image_descriptions: ''
+        include_images: ''
+        include_raw_content: ''
+        max_results: ''
+        query: ''
+        search_depth: ''
+        time_range: ''
+        topic: ''
+    - enabled: true
+      isDeleted: false
+      notAuthor: false
+      provider_id: webscraper
+      provider_name: webscraper
+      provider_type: builtin
+      tool_label: 网页爬虫
+      tool_name: webscraper
+      tool_parameters:
+        generate_summary: ''
+        url: ''
+        user_agent: ''
+    - enabled: true
+      isDeleted: false
+      notAuthor: false
+      provider_id: langgenius/gaode/gaode
+      provider_name: langgenius/gaode/gaode
+      provider_type: builtin
+      tool_label: 天气预报
+      tool_name: gaode_weather
+      tool_parameters:
+        city: ''
+  annotation_reply:
+    enabled: false
+  chat_prompt_config: {}
+  completion_prompt_config: {}
+  dataset_configs:
+    datasets:
+      datasets: []
+    reranking_enable: false
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .MPGA
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: deepseek-chat
+    provider: langgenius/deepseek/deepseek
+  more_like_this:
+    enabled: false
+  opening_statement: "你好！我是你的旅游行程规划助手，专门为你打造个性化的旅行方案。无论你想探索历史古迹、品尝地道美食，还是沉浸自然风光，只需告诉我你的目的地、旅行天数和兴趣偏好，我就能为你规划精彩行程！我会用清晰的中文为你提供：每日路线、必玩景点、特色餐厅和实用小贴士，还能根据特殊需求调整建议。现在告诉我你的旅行想法吧，让我们一起开启完美旅程！✨\
+    \  \n\n（示例问题参考：*“我想去杭州玩3天，喜欢自然景观和茶文化”* 或 *“计划5天台湾环岛游，求美食和夜市推荐”*）"
+  pre_prompt: "```xml\n<instruction>\n你是一个旅游行程规划助手，负责根据用户提供的需求生成个性化的旅游建议。请按照以下步骤操作：\n\
+    \n1. 首先识别用户提供的{{budget}}（预算金额）{{place_destination}}（旅游出发地），{{travel_destination}}（旅游目的地），{{travel_duration}}（旅行时长）和{{travel_interests}}（兴趣点，如美食、历史、自然等）。\n\
+    2. 根据这些信息，生成包含以下内容的旅游建议：\n   - 行程概览：简要说明每天的安排\n   - 推荐景点：列出6-9个符合用户兴趣的景点，每个景点附带简短描述\n\
+    \   - 餐饮建议：推荐6-7家当地特色餐厅\n   - 实用贴士：提供6条当地旅游实用建议\n   - 根据用户{{budget}}来去规划行程\n \
+    \  - 实时查询{{travel_destination}}游玩天数的天气，建议用户添衣\n   - 查询景点的门票价格和开放时间和景点的历史背景\n \
+    \  - 查询{{travel_destination}}附近的酒店名称和价格，推荐给用户\n   - 根据{{place_destination}}和{{travel_destination}}推荐几个不同的出行方式\n\
+    \   - 按照{{travel_destination}}所游玩的景点推荐当地特色的物品，按照5-1星进行排序\n3. 所有内容必须用自然流畅的中文呈现，避免使用任何XML标签。\n\
+    \n输出格式要求：\n- 开头用\"【行程推荐】\"作为标题\n- 各部分用空行分隔\n- 使用项目符号(•)列出各项建议\n</instruction>\n\
+    \n<input>\n预算金额：{{budget}}\n旅游出发地：{{place_destination}}\n旅游目的地：{{travel_destination}}\n\
+    旅行时长：{{travel_duration}}\n兴趣点：{{travel_interests}}\n</input>\n\n<example>\n旅游目的地：北京\n\
+    旅行时长：3天\n兴趣点：历史、美食\n\n【行程推荐】\n\n• 行程概览：\n第一天：故宫-景山公园-王府井小吃街\n第二天：长城-颐和园-全聚德烤鸭\n\
+    第三天：天坛-胡同游-簋街夜宵\n\n• 推荐景点：\n1. 故宫：明清两代皇家宫殿，世界文化遗产\n2. 八达岭长城：最具代表性的长城段落\n3. 颐和园：保存最完整的皇家行宫御苑\n\
+    \n• 餐饮建议：\n1. 全聚德(前门店)：百年老字号烤鸭店\n2. 护国寺小吃：体验老北京传统小吃\n\n• 实用贴士：\n1. 故宫需提前网上预约门票\n\
+    2. 长城部分路段较陡，建议穿舒适运动鞋\n3. 地铁是最便捷的\n\n• 预算规划：\n总预算5000元，建议分配如下：\n交通：长沙往返北京高铁约800元。\n\
+    住宿：经济型酒店每晚约400元，5晚共2000元。\n餐饮：每日约300元，5天共1500元。\n门票：景点门票约800元（部分景点免费）。\n\n 天气提示：\n\
+    第一天：晴 26°\n第二天：雨 16°\n\n• 酒店推荐：\n如家快捷酒店（春熙路店）：约200元/晚，位置便利。\n汉庭酒店（宽窄巷子店）：约220元/晚，靠近景点。\n\
+    \n出行方式：\n高铁：长沙南站至北京东站，约5小时，票价约300元单程。\n飞机：长沙黄花机场至北京大兴机场，约2小时，票价约500元单程（提前预订有优惠）。\n\
+    火车：长沙火车站至北京火车站，约10个小时，票价150元单程"
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    configs: []
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: false
+  text_to_speech:
+    autoPlay: enabled
+    enabled: true
+    language: ''
+    voice: sambert-zhiming-v1
+  user_input_form:
+  - text-input:
+      default: ''
+      label: 旅游目的地
+      max_length: 48
+      required: true
+      variable: travel_destination
+  - text-input:
+      default: ''
+      label: 旅行时长
+      max_length: 48
+      required: true
+      variable: travel_duration
+  - text-input:
+      default: ''
+      label: 兴趣
+      max_length: 48
+      required: false
+      variable: travel_interests
+  - text-input:
+      default: ''
+      label: 旅游出发地
+      max_length: 48
+      required: true
+      variable: place_destination
+  - number:
+      default: ''
+      label: 预算金额
+      required: true
+      variable: budget
+version: 0.3.0

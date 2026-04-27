@@ -1,0 +1,28 @@
+# Deployment configuration for llama-deploy
+#
+# This file defines your deployment setup including:
+# - Control plane configuration
+# - Message queue settings
+# - Services (workflows and UI components)
+#
+# For more information, see: https://github.com/run-llama/llama-deploy
+
+name: rag_workflow
+
+# The default service to use when no service is specified
+default_service: example_workflow
+
+# Service definitions
+# Each service represents a workflow or component in your system
+services:
+  example_workflow:
+    name: Example Workflow
+    source:
+      type: local
+      location: src
+      sync_policy: null
+    import_path: src/workflow:rag_workflow
+    env:
+      DASHSCOPE_API_KEY: sk-3ebd0a52a40541c2af7e592087c02e5f
+      DASHSCOPE_BASE_URL: https://dashscope.aliyuncs.com/compatible-mode/v1
+
