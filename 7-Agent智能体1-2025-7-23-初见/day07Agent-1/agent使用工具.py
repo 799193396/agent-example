@@ -11,6 +11,7 @@ model = "qwen-turbo-latest"
 api_key = os.getenv("DASHSCOPE_API_KEY")
 api_base_url = os.getenv("DASHSCOPE_BASE_URL")
 
+
 # 定义llm
 llm = ChatOpenAI(
     model=model,
